@@ -40,6 +40,12 @@
 	<p>
 	<a href="carros">carros</a>
 	</p>
+	<div>
+		<form action="${path}/sair" method="post">
+			<input type="hidden" name="_csrf" value="${_csrf.token}">
+			<button type="submit">Sair da aplicação</button>
+		</form>
+	</div>
 		
 	<!-- Modal -->
 	<jsp:include page="modal-segurado.jsp" />

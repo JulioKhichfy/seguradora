@@ -38,6 +38,10 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 					.logout()
 						.logoutUrl("/sair")
 						.logoutSuccessUrl("/login.jsp?saiu=true");
+			//.and()
+			//	.csrf().disable();
+			// se estivesse usando rest, talvez seja interessante desabilitar
+			
 	}
 
 }

@@ -13,10 +13,7 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 	//metodo de autenticacao, no caso em memoria
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		 System.out.println("passei pelo metodo 1.1 cobfigure da classe Configuração Segurança");
 		 auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-		 System.out.println("passei pelo metodo 1.2 cobfigure da classe Configuração Segurança");
 	}
 
 	//parte de autorização.
@@ -24,13 +21,23 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		System.out.println("passei pelo metodo 2.1 cobfigure da classe Configuração Segurança");
+		
 		http
 			.authorizeRequests()
 				.antMatchers("/app/carros/**", "/app/segurados/**").hasRole("ADMIN")
 				.anyRequest().permitAll()
-		.and().httpBasic();
-		 System.out.println("passei pelo metodo 2.2 cobfigure da classe Configuração Segurança");
+			.and()
+				.formLogin()
+					.loginPage("/login.jsp")
+					.loginProcessingUrl("/autenticar")
+					.defaultSuccessUrl("/app/segurados")
+					.failureUrl("/login.jsp?semacesso=true")
+					.usernameParameter("usuario")
+					.passwordParameter("senha")
+				.and()
+					.logout()
+						.logoutUrl("/sair")
+						.logoutSuccessUrl("/login.jsp?saiu=true");
 	}
 
 }

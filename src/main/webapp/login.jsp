@@ -28,6 +28,18 @@
 	</head>
 	<body>
 		<section id="login" class="panel panel-primary">
+		
+			<c:if test='${not empty param["semacesso"]}'>
+				<div class="alert alert-warning">
+					Usuario e/ou senha incorretos!
+				</div>
+			</c:if>
+			
+			<c:if test='${not empty param["saiu"]}'>
+				<div class="alert alert-info">
+					Você agora está fora do sistema!
+				</div>
+			</c:if>
 						
 			<form action="${path}/autenticar" method="post">
 				<div class="panel-heading">

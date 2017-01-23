@@ -27,6 +27,7 @@
 		</style>
 	</head>
 	<body>
+	
 		<section id="login" class="panel panel-primary">
 		
 			<c:if test='${not empty param["semacesso"]}'>
@@ -43,7 +44,7 @@
 						
 			<form action="${path}/autenticar" method="post">
 				<div class="panel-heading">
-					Pizzaria - Login
+					Pequenos Detalhes - Login
 				</div>
 				
 				<div class="panel-body">

@@ -16,6 +16,8 @@ public class Aplicacao implements WebApplicationInitializer{
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		
+		System.out.println("NEGOCIO");
 		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
 		webApplicationContext.setConfigLocation("br.com.seguradora.configuracoes");
 		

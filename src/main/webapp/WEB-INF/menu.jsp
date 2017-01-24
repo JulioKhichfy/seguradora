@@ -29,10 +29,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
       	<li>
-      		<a href="..${path}/carros">Carros</a>
+      		<a href="..${path}/artefatos">Objetos</a>
       	</li>
       	<li>
-      		<a href="..${path}/segurados">Segurados</a>
+      		<a href="..${path}/festastemas">Festas Temas</a>
       	</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

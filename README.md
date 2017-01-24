@@ -1,26 +1,56 @@
-#Criar uma aplica√ß√£o de seguros de autom√≥veis.
+#Criar uma aplicaÁ„o de locaÁ„o de peÁas de decoraÁ„o para festas.
 	
-##Entidades (carro e segurado)	
+##Entidades (artefatos e festasPreDefinidas e clientes e pedidos)	
 
-	cadastro de veiculos
-		->id
-		->marca
-		->modelo
-		->placa
-		->anoFabricacao
-		->combustivel
-		->categoria
-		->preco
-		
-	cadastro de segurados
+	>>*********ADMIN
+	cadastro de artefatos
 		->id
 		->nome
-		->idade
-		->sexo
+		->descricao
+		->categoriacor
+		->categoriaMaterial
+		->categoriatipoArtefato
+		->quantidade
+		->peso
+		->dimensao
+		->preco
+		->dataDeReserva
+		->disponibilidade
 		
-um segurado pode possuir varios carros
+	cadastro de festasTemas
+		->id
+		->nome
+		->descricao
+		->categoriaTema
+		->Set<Artefatos> artefatos
+		->preco
+		->dataDeReserva
+		->disponibilidade
+		
+												>>********* TODOS
+														cadastro de clientes(Decoradora)
+															->id
+															->nome
+															->email
+															->cidade
+															->Bairro
+															->rua
+															->numero
+															->bloco
+															->apartamento
+															->cep
+															->telefone
+															
+																						>>********* CLIENTES
+																									Cadastro de Pedidos
+																										->id
+																										->isFestaPredefinida
+																										->nomeFesta
+																										->Set<Artefatos>
+																										->clienteId
 
-Iremos construir uma aplica√ß√£o web utilizando:
+
+Iremos construir uma aplicaÁ„o web utilizando:
 	- spring-mvc 
 	- spring-jdbc (para acessar o banco de dados)
 	- spring-orm  (para integrar com hibernate)
@@ -28,7 +58,7 @@ Iremos construir uma aplica√ß√£o web utilizando:
 	- spring-aop  (caso precise implementar orientado a aspecto)
 	- MySql DB
 	- hibernate
-	- c3p0 (biblioteca para multiconex√£o) // para n√£o precisar ficar "abrindo conex√£o toda hora"
+	- c3p0 (biblioteca para multiconex„o) // para n„o precisar ficar "abrindo conex„o toda hora"
 
 - Para construir o Front-End iremos utilizar:
 	- javascript

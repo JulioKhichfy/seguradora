@@ -25,7 +25,7 @@ public class Aplicacao implements WebApplicationInitializer{
 		
 		//para executar logo no começo
 		appServlet.setLoadOnStartup(1);
-		appServlet.addMapping("/app/*");
+		appServlet.addMapping("/");
 		
 		servletContext.addListener(new ContextLoaderListener(webApplicationContext));
 		

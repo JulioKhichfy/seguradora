@@ -48,14 +48,14 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
-				.antMatchers("/app/segurados**").access("hasRole('ROLE_ADMIN')")
-				.antMatchers("/app/carros/**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/segurados**").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/carros/**").access("hasRole('ROLE_ADMIN')")
 				
 			.and()
 				.formLogin()
 					.loginPage("/login.jsp")
 					.loginProcessingUrl("/autenticar")
-					.defaultSuccessUrl("/app/segurados")
+					.defaultSuccessUrl("/segurados")
 					.failureUrl("/login.jsp?semacesso=true")
 					.usernameParameter("usuario")
 					.passwordParameter("senha")

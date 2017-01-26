@@ -29,7 +29,7 @@ public class Usuario implements UserDetails{
 	
 	private String senha;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Permissao> permissoes;
 
 	public Long getId() {

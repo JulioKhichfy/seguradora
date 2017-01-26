@@ -34,7 +34,7 @@ var limparModal = function(){
 	$('#id').val('');
 	$('#nome').val('');
 	$('#descricao').val('');
-	$('#categoriaTema').val('');
+	$('#categoriatemas').val('');
 	$('#artefatos option').attr('selected', false);
 	$('#preco').val('');
 	$('#dataDeReserva').val('');
@@ -55,10 +55,11 @@ var aplicarListeners = function(){
 				$('#id').val(festatema.id);
 				$('#nome').val(festatema.nome);
 				$('#idade').val(festatema.descricao);
-				$('#categoriaTema').val(festatema.categoriaTema);
+				$('#categoriatemas').val(festatema.categoriaTema);
 				$('#artefatos').val(festatema.artefatos);
 				$('#preco').val(festatema.preco);
 				$('#dataDeReserva').val(festatema.dataDeReserva);
+				$('#descricao').val(festatema.descricao);
 				$('#disponibilidade').val(festatema.disponibilidade);
 				
 				festatema.artefatos.forEach(function(artefato){

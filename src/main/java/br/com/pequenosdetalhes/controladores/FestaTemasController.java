@@ -1,8 +1,12 @@
 package br.com.pequenosdetalhes.controladores;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,6 +38,18 @@ public class FestaTemasController {
 	private ArtefatoRepositorio artefatoRepositorio;
 	@Autowired
 	private ArtefatoPropertyEditor artefatoPropertyEditor;
+	
+	@InitBinder
+	private void dateBinder(WebDataBinder binder) {
+		// formatar a data no padrao escolhido "yyyy-MM-dd"
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// Create a new CustomDateEditor
+		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+		
+		// Register it as custom editor for the Date type
+		binder.registerCustomEditor(Date.class, editor);
+	}
 
 	@RequestMapping("/quantas")
 	@ResponseBody
@@ -46,9 +62,9 @@ public class FestaTemasController {
 
 		model.addAttribute("titulo", "Listagem de festas tematicas");
 
-		model.addAttribute("festasTemas", festaTemaRepositorio.findAll());
+		model.addAttribute("festastemas", festaTemaRepositorio.findAll());
 
-		model.addAttribute("categoriatemas", CategoriaTema.values());
+		model.addAttribute("categoriaTema", CategoriaTema.values());
 
 		model.addAttribute("artefatos", artefatoRepositorio.findAll());
 
@@ -56,7 +72,9 @@ public class FestaTemasController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvarFestaTema(@Valid @ModelAttribute FestaTema festaTema, BindingResult bindingResult,
+	public String salvarFestaTema(@Valid
+			@ModelAttribute FestaTema festaTema, 
+			BindingResult bindingResult,
 			Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -67,9 +85,9 @@ public class FestaTemasController {
 			festaTemaRepositorio.save(festaTema);
 		}
 		model.addAttribute("festastemas", festaTemaRepositorio.findAll());
-		model.addAttribute("categoriatemas", CategoriaTema.values());
+		model.addAttribute("categoriaTema", CategoriaTema.values());
 
-		return "festaTema/tabela-festatemas";
+		return "festatema/tabela-festastemas";
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{festaTemaId}")

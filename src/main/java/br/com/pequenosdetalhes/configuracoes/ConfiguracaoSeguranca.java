@@ -62,9 +62,9 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 				.and()
 					.logout()
 						.logoutUrl("/sair")
-						.logoutSuccessUrl("/login.jsp?saiu=true");
-			//.and()
-			//	.csrf().disable();
+						.logoutSuccessUrl("/login.jsp?saiu=true")
+			.and()
+				.csrf().disable(); //ATENCAO. DESABILITEI PARA REALIZAR CHAMADA NO METODO PARA IMAGENS. VOLTAR AQUI!
 			// se estivesse usando rest, talvez seja interessante desabilitar
 			
 	}

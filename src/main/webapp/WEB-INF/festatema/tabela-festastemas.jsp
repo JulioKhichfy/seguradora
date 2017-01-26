@@ -6,7 +6,7 @@
 
 <!DOCTYPE html>
 
-<table class="table table-hover table-condensed table-striped table-bordered">
+<table class="table table-hover table-condensed table-bordered">
 			<thead>
 				<tr>
 					<td  style="width: 5%">Id</td>
@@ -22,31 +22,34 @@
 				</tr>
 			</thead>
 			<tbody>
-			
-			<c:forEach items="${festasTemas}" var="festatema">
-				<tr data-id="${festatema.id}">
-					 <td>${festatema.id}</td>
-					 <td>${festatema.nome}</td>
-					 <td>${festatema.descricao}</td>
-					 <td>${festatema.categoriaTema}</td>
-					 <td>
-						<c:forEach items="${festatema.artefatos}" var="artefato">
-							${artefato.id} ${artefato.nome}</br>
-						</c:forEach>
-					</td>
-					<td>${festatema.preco}</td>
-					<td>${festatema.dataDeReserva}</td>
-					<td>${festatema.disponibilidade}</td>
-					 <td><button type="button" class="btn btn-warning btn-editar">Editar</button></td>
-					 <td><button type="button" class="btn btn-danger btn-deletar">Deletar</button></td>
-				</tr>
-			</c:forEach>
+					
+				<c:forEach items="${festastemas}" var="festatema">
+					<tr data-id="${festatema.id}">
+						 <td>${festatema.id}</td>
+						 <td>${festatema.nome}</td>
+						 <td>${festatema.descricao}</td>
+						 <td>${festatema.categoriaTema}</td>
+						 <td>
+							<c:forEach items="${festatema.artefatos}" var="artefato">
+								${artefato.id} ${artefato.nome}</br>
+							</c:forEach>
+						</td>
+						<td>${festatema.preco}</td>
+						 <td>
+						 	<fmt:formatDate pattern="yyyy-MM-dd" value="${festatema.dataDeReserva}" />
+						 </td>
+					
+						<td>${festatema.disponibilidade}</td>
+						 <td><button type="button" class="btn btn-warning btn-editar">Editar</button></td>
+						 <td><button type="button" class="btn btn-danger btn-deletar">Deletar</button></td>
+					</tr>
+				</c:forEach>
 				
 			</tbody>
 			<tfoot>
 				
 				<tr>
-					<td colspan="10">Festas Temas cadastradas: <span id="quantidade-festastemas">${festasTemas.size()}</span></td>
+					<td colspan="10">Festas Temas cadastradas: <span id="quantidade-festastemas">${festastemas.size()}</span></td>
 				</tr>
 				<tr>
 					<td colspan="10">

@@ -14,7 +14,7 @@ var aplicatListenerBtnSalvar = function(){
 		var url = 'artefatos';
 		var dadosArtefato = $('#form-artefato').serialize();
 		
-		$.post(url, dadosArtefato)
+		$.post(url,dadosArtefato)
 			.done(function(pagina){
 				$('#secao-artefatos').html(pagina)
 				aplicarListeners();
@@ -73,9 +73,9 @@ var aplicarListeners = function(){
 				$('#id').val(artefato.id);
 				$('#nome').val(artefato.nome);
 				$('#descricao').val(artefato.descricao);
-				$('#categoriaCombustivel').val(artefato.categoriacor);
-				$('#categoriaCombustivel').val(artefato.categoriaMaterial);
-				$('#categoriaCombustivel').val(artefato.categoriatipoArtefato);
+				$('#categoriaCor').val(artefato.categoriaCor);
+				$('#categoriaMaterial').val(artefato.categoriaMaterial);
+				$('#categoriaTipoArtefato').val(artefato.categoriaTipoArtefato);
 				$('#quantidade').val(artefato.quantidade);
 				$('#peso').val(artefato.peso);
 				$('#preco').val(artefato.preco);
@@ -83,7 +83,7 @@ var aplicarListeners = function(){
 				var date2Edit = getDataParaEdicao(artefato.dataDeReserva);
 			    $('#dataDeReserva').val(date2Edit);
 			    $('#disponibilidade').val(artefato.disponibilidade);
-				$('#modal-carro').modal('show');
+				$('#modal-artefato').modal('show');
 			});
 	});
 	
@@ -105,5 +105,22 @@ var aplicarListeners = function(){
 		
 		
 	});
+	
+	/*$('.btn-upimg').on('click', function(){
+		var id = $(this).parents('tr').data('id');
+		$('#modal-imagem').modal('show');
+		$('#id_image').val(id);
+		
+	});*/
+	
+	// Fill modal with content from link href
+	$("#modal-exibir-imagem").on("show.bs.modal", function(e) {
+	    var link = $(e.relatedTarget);
+	    var id_image = $(this).parents('tr').data('id');
+	    $('#id_image').val(id_image);
+	    $(this).find(".modal-body").load(link.attr("href"));
+	});
+	
+	
 	
 }

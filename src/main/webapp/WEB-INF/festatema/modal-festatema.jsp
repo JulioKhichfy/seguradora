@@ -7,7 +7,7 @@
 <div class="modal fade" id="modal-festatema" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form id="form-festaTema" method="post" >
+			<form id="form-festatema" method="post" >
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -22,9 +22,9 @@
 					<label for="descricao">descricao: </label>
 					<input id="descricao" name="descricao" class="form-control">
 				
-					<label for="categoriatemas">categoriaTema: </label>
-					<select id="categoriatemas" name="categoriatemas" class="form-control">
-						<c:forEach items="${categoriatemas}" var="cattema">
+					<label for="categoriaTema">categoriaTema: </label>
+					<select id="categoriaTema" name="categoriaTema" class="form-control">
+						<c:forEach items="${categoriaTema}" var="cattema">
 							<option value="${cattema}">${cattema}</option>
 						</c:forEach>
 					</select>

@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.pequenosdetalhes.excecoes.CarroInvalidoException;
 import br.com.pequenosdetalhes.modelo.entidades.Artefato;
@@ -28,12 +32,15 @@ import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaMaterial;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaTipoArtefato;
 import br.com.pequenosdetalhes.modelo.repositorios.ArtefatoRepositorio;
 
+
 // app/carros (metodo GET) --> vai cair no metodo listarCarros
 // app/carros (metodo POST) --> vai cair no metodo salvarCarro
 
 @Controller
 @RequestMapping("/artefatos")
 public class ArtefatoController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ArtefatoController.class);
 
 	@Autowired
 	private ArtefatoRepositorio artefatoRepositorio;
@@ -49,7 +56,8 @@ public class ArtefatoController {
 		// Register it as custom editor for the Date type
 		binder.registerCustomEditor(Date.class, editor);
 	}
-
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String listarArtefatos(Model model) {
 		model.addAttribute("titulo", "Listagem de Artefatos");
@@ -78,6 +86,7 @@ public class ArtefatoController {
 			throw new CarroInvalidoException();
 
 		} else {
+			
 			artefatoRepositorio.save(artefato);
 	
 		}

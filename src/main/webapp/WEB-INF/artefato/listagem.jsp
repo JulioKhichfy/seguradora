@@ -16,6 +16,14 @@
 		<style type="text/css">
 			@IMPORT url("${path}/static/bootstrap/css/bootstrap.min.css");
 			@IMPORT url("${path}/static/bootstrap/css/bootstrap-theme.min.css");
+			
+			tbody tr:nth-child(odd) {
+		   		background-color: #B0E0E6;
+			}
+			tbody tr:nth-child(even) {
+		   		background-color: #FFE4E1;
+			}
+			
 		</style>
 	</head>
 	
@@ -41,6 +49,8 @@
 					
 			<!-- Modal -->
 			<jsp:include page="modal-artefato.jsp" />
+			<jsp:include page="modal-imagem.jsp" />
+			<jsp:include page="modal-exibir-imagem.jsp" />
 		</div>
 	
 		<script type="text/javascript" src="${path}/static/js/jquery-3.1.1.min.js"></script>

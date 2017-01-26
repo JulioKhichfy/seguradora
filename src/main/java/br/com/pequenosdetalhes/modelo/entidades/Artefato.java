@@ -1,13 +1,20 @@
 package br.com.pequenosdetalhes.modelo.entidades;
 
+//import java.io.File;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -53,7 +60,10 @@ public class Artefato {
 	
 	private Boolean disponibilidade;
 	
-
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name="artefato_imagemartefato", joinColumns={@JoinColumn(name="artefato_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="imagem_artefato_id", referencedColumnName="id")})
+	private Set<ImagemArtefato> imagensArtefatos;
+		
 	public Long getId() {
 		return id;
 	}
@@ -181,5 +191,14 @@ public class Artefato {
 		return true;
 	}
 
+	public Set<ImagemArtefato> getImagensArtefatos() {
+		return imagensArtefatos;
+	}
+
+	public void setImagensArtefatos(Set<ImagemArtefato> imagensArtefatos) {
+		this.imagensArtefatos = imagensArtefatos;
+	}
+
+	
 	
 }

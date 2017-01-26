@@ -15,6 +15,14 @@
 		<style type="text/css">
 			@IMPORT url("${path}/static/bootstrap/css/bootstrap.min.css");
 			@IMPORT url("${path}/static/bootstrap/css/bootstrap-theme.min.css");
+			
+			tbody tr:nth-child(odd) {
+		   		background-color: #B0E0E6;
+			}
+			tbody tr:nth-child(even) {
+		   		background-color: #FFE4E1;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -34,13 +42,13 @@
 			</c:if>
 		
 			<section id="secao-festastemas">
-				<jsp:include page="tabela-festasTemas.jsp" />
+				<jsp:include page="tabela-festastemas.jsp" />
 			</section>
 			
 			
 				
 			<!-- Modal -->
-			<jsp:include page="modal-festaTema.jsp" />
+			<jsp:include page="modal-festatema.jsp" />
 		</div>
 		<script type="text/javascript" src="${path}/static/js/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="${path}/static/bootstrap/js/bootstrap.min.js"></script>

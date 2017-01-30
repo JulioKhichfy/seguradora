@@ -34,7 +34,9 @@
 				<tr data-id="${artefato.id}">
 					 <td>${artefato.id}</td>
 					 
-    				 <td><a href="modal-exibir-imagem.jsp" data-remote="false" data-toggle="modal" data-target="#modal-exibir-imagem">${artefato.nome}</a></td>
+    				 <td>
+    				 	<button type="button" class="btn btn-warning btn-listar-imagem">${artefato.nome}</button>
+    				 </td>
 					 
 					 <td>${artefato.descricao}</td>
 					 <td>${artefato.categoriaCor}</td>
@@ -79,4 +81,6 @@
 				
 			</tfoot>
 		</table>
+		
+		
 	

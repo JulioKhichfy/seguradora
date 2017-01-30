@@ -26,7 +26,7 @@ var aplicatListenerBtnSalvar = function(){
 			})
 			.always(function(){
 				$('#modal-artefato').modal('hide');
-				//$('.modal-backdrop').remove();
+				// $('.modal-backdrop').remove();
 			});
 	});
 	
@@ -40,6 +40,22 @@ function getDataParaEdicao(date2Edit){
     var d = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
     return d;
+}
+
+function deletarImagem(data){
+	
+	$.ajax({
+		url : "imagens/deletarImagemArtefato/"+data,
+		type: 'DELETE',
+		headers: {'X-CSRF-TOKEN': csrf},
+	    success: function(result) {
+	    	
+	    	$('img[data-id="'+data+'"]').remove();
+	    	$('button[data-id="'+data+'"]').remove();
+	    	$( 'br[data-id="'+data+'"]' ).remove();
+
+	    }
+	});
 }
 
 
@@ -57,7 +73,6 @@ var limparModal = function(){
 	$('#dataDeReserva').val('');
 	$('#disponibilidade').val(true);
 };
-
 
 var aplicarListeners = function(){
 	$('#modal-artefato').on('hide.bs.modal', limparModal);
@@ -106,21 +121,55 @@ var aplicarListeners = function(){
 		
 	});
 	
-	/*$('.btn-upimg').on('click', function(){
-		var id = $(this).parents('tr').data('id');
-		$('#modal-imagem').modal('show');
-		$('#id_image').val(id);
-		
-	});*/
-	
-	// Fill modal with content from link href
-	$("#modal-exibir-imagem").on("show.bs.modal", function(e) {
-	    var link = $(e.relatedTarget);
-	    var id_image = $(this).parents('tr').data('id');
-	    $('#id_image').val(id_image);
-	    $(this).find(".modal-body").load(link.attr("href"));
+	$(".btn-listar-imagem").on("click", function() {
+		var idArtefato = $(this).parents('tr').data('id');
+		var url = 'imagens/buscarImagensArtefato/'+idArtefato;
+
+		$("#imagediv img").remove();
+		$("#imagediv button").remove();
+
+		$.get(url).then(function (imageList,success)
+		{
+			
+			for (let index = 0; index < imageList.length; ++index) {
+			
+				
+				
+				var img = $('<img>'); // Equivalent $(document.createElement('img'))
+					img.attr('id', imageList[index].id);
+					img.attr('width', 100);
+					img.attr('height', 100);
+					img.attr('data-id', imageList[index].id);
+				
+				var btn = $('<button>');
+					btn.attr('type', 'button');
+					btn.attr('class', 'btn btn-danger btn-deletar-imagem');
+					btn.attr('data-id',imageList[index].id);
+					$(btn).html("Remover");
+					btn.attr('onclick' , 'deletarImagem('+imageList[index].id+')' );
+				
+					if(imageList[index].fileName.split('.')[1] == "png")
+					{
+						img.attr('src', "data:image/png;base64," + imageList[index].data);
+					}
+					else if(imageList[index].fileName.split('.')[1] == "jpg")
+					{
+						img.attr('src', "data:image/jpg;base64," + imageList[index].data);
+					}
+					
+					var br = $('<br>');
+					br.attr('data-id', imageList[index].id);
+					
+					$("#imagediv").append(img);
+					$("#imagediv").append(btn);
+					$("#imagediv").append(br);
+			}
+			
+			//$("#imagediv").append(content);
+			$('#modal-exibir-imagem').modal('show');
+					
+		});
+	    
 	});
-	
-	
 	
 }

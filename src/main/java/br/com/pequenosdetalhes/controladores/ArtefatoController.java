@@ -2,7 +2,10 @@ package br.com.pequenosdetalhes.controladores;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -21,12 +24,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import br.com.pequenosdetalhes.excecoes.CarroInvalidoException;
 import br.com.pequenosdetalhes.modelo.entidades.Artefato;
+import br.com.pequenosdetalhes.modelo.entidades.ImagemArtefato;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaCor;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaMaterial;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaTipoArtefato;
@@ -40,7 +42,7 @@ import br.com.pequenosdetalhes.modelo.repositorios.ArtefatoRepositorio;
 @RequestMapping("/artefatos")
 public class ArtefatoController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ArtefatoController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(ArtefatoController.class);
 
 	@Autowired
 	private ArtefatoRepositorio artefatoRepositorio;
@@ -110,11 +112,14 @@ public class ArtefatoController {
 		}
 	}
 	
+	
+	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	@ResponseBody//obrigar o spring a retornar xml ou json
 	public Artefato buscarArtefato(@PathVariable Long id){
 		Artefato artefato = artefatoRepositorio.findOne(id);
 		return artefato;
 	}
+	
 
 }

@@ -13,7 +13,7 @@ function setaDadosModal(valor) {
 <div class="modal fade" id="modal-imagem" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="post" action="doUpload" enctype="multipart/form-data">
+			<form method="post" action="imagens/doUpload" enctype="multipart/form-data">
 				
 				<div class="modal-header">
 					<h4 class="modal-title">Imagens do Artefato</h4>

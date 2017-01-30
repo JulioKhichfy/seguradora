@@ -13,14 +13,14 @@
 					<h4 class="modal-title">Imagens do Artefato</h4>
 				</div>
 				<div class="modal-body">
+
+					<div id ="imagediv">
 					
+					</div>
 		            
 	            </div>
-	            
-				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<input type="submit" value="Upload" /> Clique aqui para salvar as fotos
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 				</div>
 	        
 		</div>

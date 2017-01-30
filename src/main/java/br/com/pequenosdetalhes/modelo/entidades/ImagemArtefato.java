@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ImagemArtefato {
@@ -12,7 +13,7 @@ public class ImagemArtefato {
     private String fileName;
     private byte[] data;
     
-   
+      
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
@@ -38,5 +39,6 @@ public class ImagemArtefato {
     public void setData(byte[] data) {
         this.data = data;
     }
+
 
 }

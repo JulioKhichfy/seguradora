@@ -51,6 +51,7 @@
 			<jsp:include page="modal-artefato.jsp" />
 			<jsp:include page="modal-imagem.jsp" />
 			<jsp:include page="modal-exibir-imagem.jsp" />
+			
 		</div>
 	
 		<script type="text/javascript" src="${path}/static/js/jquery-3.1.1.min.js"></script>

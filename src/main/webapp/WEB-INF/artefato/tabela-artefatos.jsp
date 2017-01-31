@@ -53,7 +53,6 @@
 					 </td>
 					  <td>${artefato.disponibilidade}</td>
 					
-					
 					 <!--<a href="modal-imagem.jsp" data-remote="false" data-toggle="modal" data-target="#modal-imagem" class="btn btn-default">
     					imagem - ${artefato.id}
 					</a> -->

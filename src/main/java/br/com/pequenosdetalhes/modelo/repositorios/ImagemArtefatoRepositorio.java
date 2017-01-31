@@ -9,4 +9,6 @@ import br.com.pequenosdetalhes.modelo.entidades.ImagemArtefato;
 public interface ImagemArtefatoRepositorio extends CrudRepository<ImagemArtefato, Long>{
 	
 
+	public ImagemArtefato findById(long id);
+	
 }

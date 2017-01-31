@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -59,6 +60,10 @@ public class Artefato {
 	private Double preco;
 	
 	private Boolean disponibilidade;
+	
+	@ManyToOne
+	@JoinColumn(name="USUARIO")
+	private Usuario usuario; 
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="artefato_imagemartefato", joinColumns={@JoinColumn(name="artefato_id", referencedColumnName="id")}, inverseJoinColumns={@JoinColumn(name="imagem_artefato_id", referencedColumnName="id")})
@@ -197,6 +202,14 @@ public class Artefato {
 
 	public void setImagensArtefatos(Set<ImagemArtefato> imagensArtefatos) {
 		this.imagensArtefatos = imagensArtefatos;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	

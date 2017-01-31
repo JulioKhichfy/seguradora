@@ -10,7 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -44,10 +46,14 @@ public class FestaTema {
 	@Enumerated(EnumType.STRING)
 	private CategoriaTema categoriaTema;
 	
+	@ManyToOne
+	@JoinColumn(name="USUARIO")
+	private Usuario usuario; 
+	
 	//@ManyToMany(fetch=FetchType.EAGER) -> pior maneira de tratar o erro de lazy
 	@ManyToMany
 	private Set<Artefato> artefatos;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -146,7 +152,12 @@ public class FestaTema {
 		return true;
 	}
 
-	
-	
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

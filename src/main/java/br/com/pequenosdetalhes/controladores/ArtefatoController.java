@@ -2,15 +2,10 @@ package br.com.pequenosdetalhes.controladores;
 
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
@@ -28,11 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.pequenosdetalhes.excecoes.CarroInvalidoException;
 import br.com.pequenosdetalhes.modelo.entidades.Artefato;
-import br.com.pequenosdetalhes.modelo.entidades.ImagemArtefato;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaCor;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaMaterial;
 import br.com.pequenosdetalhes.modelo.enumeracoes.CategoriaTipoArtefato;
-import br.com.pequenosdetalhes.modelo.repositorios.ArtefatoRepositorio;
+import br.com.pequenosdetalhes.modelo.servicos.ServicoArtefato;
 
 
 // app/carros (metodo GET) --> vai cair no metodo listarCarros
@@ -44,8 +38,11 @@ public class ArtefatoController {
 	
 	//private static final Logger logger = LoggerFactory.getLogger(ArtefatoController.class);
 
+	
+	
 	@Autowired
-	private ArtefatoRepositorio artefatoRepositorio;
+	//private ArtefatoRepositorio artefatoRepositorio;
+	private ServicoArtefato servicoArtefato;
 	
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
@@ -63,8 +60,8 @@ public class ArtefatoController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String listarArtefatos(Model model) {
 		model.addAttribute("titulo", "Listagem de Artefatos");
-
-		Iterable<Artefato> artefatos = artefatoRepositorio.findAll();
+		
+		Iterable<Artefato> artefatos = servicoArtefato.listar();
 		
 		model.addAttribute("artefatos", artefatos);
 				
@@ -89,10 +86,18 @@ public class ArtefatoController {
 
 		} else {
 			
-			artefatoRepositorio.save(artefato);
-	
+			if(artefato.getId()!=null){
+				Artefato artefatoOld = servicoArtefato.buscar(artefato.getId());
+				artefatoOld.setNome(artefato.getNome());
+				servicoArtefato.remover(artefato.getId());
+				servicoArtefato.salvar(artefatoOld);
+			}else
+			
+				servicoArtefato.salvar(artefato);
+	 
 		}
-		model.addAttribute("artefatos", artefatoRepositorio.findAll());
+		
+		model.addAttribute("artefatos", servicoArtefato.listar());
 		model.addAttribute("categoriaCor", CategoriaCor.values());
 		model.addAttribute("categoriaMaterial", CategoriaMaterial.values());
 		model.addAttribute("categoriaTipoArtefato", CategoriaTipoArtefato.values());
@@ -103,7 +108,7 @@ public class ArtefatoController {
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}")
 	public ResponseEntity<String> deletarArtefato(@PathVariable Long id){
 		try {
-			artefatoRepositorio.delete(id);
+			servicoArtefato.remover(id);
 			return new ResponseEntity<String>(HttpStatus.OK);
 			
 		}catch(Exception ex){
@@ -117,9 +122,7 @@ public class ArtefatoController {
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	@ResponseBody//obrigar o spring a retornar xml ou json
 	public Artefato buscarArtefato(@PathVariable Long id){
-		Artefato artefato = artefatoRepositorio.findOne(id);
+		Artefato artefato = servicoArtefato.buscar(id);
 		return artefato;
 	}
-	
-
 }

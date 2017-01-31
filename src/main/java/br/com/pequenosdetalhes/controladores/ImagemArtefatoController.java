@@ -1,7 +1,6 @@
 package br.com.pequenosdetalhes.controladores;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,18 +19,19 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import br.com.pequenosdetalhes.modelo.entidades.Artefato;
 import br.com.pequenosdetalhes.modelo.entidades.ImagemArtefato;
-import br.com.pequenosdetalhes.modelo.repositorios.ArtefatoRepositorio;
-import br.com.pequenosdetalhes.modelo.repositorios.ImagemArtefatoRepositorio;
+import br.com.pequenosdetalhes.modelo.servicos.ServicoArtefato;
+import br.com.pequenosdetalhes.modelo.servicos.ServicoImagem;
 
 @Controller
 @RequestMapping("/imagens")
 public class ImagemArtefatoController {
 	
+		
 	@Autowired
-	private ImagemArtefatoRepositorio imagemArtefatoRepositorio;
+	private ServicoArtefato servicoArtefato;
 	
 	@Autowired
-	private ArtefatoRepositorio artefatoRepositorio;
+	private ServicoImagem servicoImagem;
 	
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showUploadForm(HttpServletRequest request) {
@@ -45,11 +45,10 @@ public class ImagemArtefatoController {
     	
     	Long id = Long.parseLong(id_image.split(",")[0]);
     	System.out.println(id);
-    	Artefato artefato = artefatoRepositorio.findOne(id);
+    	Artefato artefato = servicoArtefato.buscar(id);
     	Set<ImagemArtefato> allImgs = artefato.getImagensArtefatos();
-    	//Set<ImagemArtefato> imsg = new HashSet<ImagemArtefato>();
-    	
-        if (fileUpload != null && fileUpload.length > 0) {
+
+    	if (fileUpload != null && fileUpload.length > 0) {
             for (CommonsMultipartFile aFile : fileUpload){
             	if(aFile.getSize()>0){ 
             		System.out.println("Saving file: " + aFile.getOriginalFilename());
@@ -57,14 +56,14 @@ public class ImagemArtefatoController {
             		
             		uploadFile.setFileName(aFile.getOriginalFilename());
             		uploadFile.setData(aFile.getBytes());
-            		ImagemArtefato img= imagemArtefatoRepositorio.save(uploadFile);
+            		ImagemArtefato img= servicoImagem.salvar(uploadFile);
             		allImgs.add(img);
             	
             	}
                 
             }
             artefato.setImagensArtefatos(allImgs);
-            artefatoRepositorio.save(artefato);
+            servicoArtefato.salvar(artefato);
         }
   
         return "redirect:/artefatos";
@@ -73,7 +72,7 @@ public class ImagemArtefatoController {
     @RequestMapping(method=RequestMethod.GET, value="{buscarImagensArtefato}/{id}")
 	@ResponseBody//obrigar o spring a retornar xml ou json
 	public List<ImagemArtefato> buscarImagensArtefato(@PathVariable Long id){
-		Artefato artefato = artefatoRepositorio.findOne(id);
+		Artefato artefato = servicoArtefato.buscar(id);
 		
 		Set<ImagemArtefato> imgs = artefato.getImagensArtefatos();
 		List<ImagemArtefato> imageList = new ArrayList<ImagemArtefato>();
@@ -88,12 +87,12 @@ public class ImagemArtefatoController {
 	public ResponseEntity<String> deletarImagemArtefato(@PathVariable Long id){
 		try {
 			
-			ImagemArtefato imagem = imagemArtefatoRepositorio.findOne(id);
-			Artefato artefato = artefatoRepositorio.findByImagensArtefatos(imagem);
+			ImagemArtefato imagem = servicoImagem.buscar(id);
+			Artefato artefato = servicoArtefato.findByImagensArtefatos(imagem);
 			
 			artefato.getImagensArtefatos().remove(imagem);
-			artefatoRepositorio.save(artefato);
-			imagemArtefatoRepositorio.delete(imagem);
+			servicoArtefato.salvar(artefato);
+			servicoImagem.remover(imagem.getId());
 			return new ResponseEntity<String>(HttpStatus.OK);
 			
 		}catch(Exception ex){

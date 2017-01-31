@@ -34,6 +34,9 @@
       	<li>
       		<a href="..${path}/festastemas">Festas Temas</a>
       	</li>
+      	<li>
+      		<a href="..${path}/relatorios">Relatórios</a>
+      	</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 	      <li>

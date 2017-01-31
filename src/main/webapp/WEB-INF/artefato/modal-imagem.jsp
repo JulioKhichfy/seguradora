@@ -20,10 +20,7 @@ function setaDadosModal(valor) {
 				</div>
 				<div class="modal-body">
 				
-					<input id="id_image" name="id_image" type="text">
-				
-					<input type="text" name="campo" id="campo">
-		            <table border="1">
+				    <table border="1">
 		                <tr>
 		                    <td>Foto #1:</td>
 		                    <td><input type="file" name="fileUpload" size="50" /></td>
@@ -51,7 +48,8 @@ function setaDadosModal(valor) {
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<input type="submit" value="Upload" /> Clique aqui para salvar as fotos
+					
+					<input type="submit" class="btn btn-default" value="Upload" /> 
 				</div>
 	        </form>
 		</div>
